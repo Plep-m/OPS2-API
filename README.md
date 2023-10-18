@@ -16,4 +16,5 @@ Need to install the requirements.txt with pip3.11
 ## Running instance
 
 Need to run the api on port 4242 using uvicorn 
+
     uvicorn main:app
