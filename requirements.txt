@@ -1,0 +1,10 @@
+fastapi
+sqlalchemy
+uvicorn
+pydantic
+databases
+psycopg2
+sqlalchemy-utils
+python-multipart
+unidecode
+PyJWT
