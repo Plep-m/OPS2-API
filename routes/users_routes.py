@@ -12,6 +12,7 @@ import jwt
 import os
 from src.user_utils import create_user
 
+
 SECRET_KEY = os.environ.get("SECRET_KEY", "default_key")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 43200
