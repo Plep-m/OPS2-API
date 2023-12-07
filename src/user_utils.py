@@ -5,6 +5,13 @@ from sqlalchemy.orm import Session
 from models.user_model import User, GenderEnum
 from models.role_model import Role
 from unidecode import unidecode
+from dotenv import load_dotenv
+
+if os.path.isfile('ops.env'):
+    load_dotenv('ops.env')
+else:
+    print('ops.env not found, using ops_env.env default file')
+    load_dotenv('ops_env.env')
 
 def generate_md5(value: str) -> str:
     return hashlib.md5(value.encode()).hexdigest()
