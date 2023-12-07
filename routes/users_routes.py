@@ -11,7 +11,13 @@ from jwt import PyJWTError
 import jwt
 import os
 from src.user_utils import create_user
+from dotenv import load_dotenv
 
+if os.path.isfile('ops.env'):
+    load_dotenv('ops.env')
+else:
+    print('ops.env not found, using ops_env.env default file')
+    load_dotenv('ops_env.env')
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "default_key")
 ALGORITHM = "HS256"
