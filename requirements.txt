@@ -3,7 +3,7 @@ sqlalchemy
 uvicorn
 pydantic
 databases
-psycopg2
+psycopg2-binary
 sqlalchemy-utils
 python-multipart
 unidecode
