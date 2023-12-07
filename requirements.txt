@@ -8,3 +8,4 @@ sqlalchemy-utils
 python-multipart
 unidecode
 PyJWT
+python-dotenv
