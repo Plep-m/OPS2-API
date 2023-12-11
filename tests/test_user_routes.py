@@ -62,6 +62,11 @@ def test_verify_token_ok():
   assert response.json() == {"login": "sully_natsuya"}
 
 def test_verify_token_ko():
-  response = client.get("/verify-token/")
+  response = client.get(
+    "/verify-token/",
+    headers={
+      "Authorization": f"Bearer notatoken"
+    }
+  )
   assert response.status_code == 401
   assert response.json() == {"detail": "Could not validate credentials"}
