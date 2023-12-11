@@ -61,11 +61,19 @@ def create_user(db: Session, firstname: str, lastname: str, gender: GenderEnum, 
         else:
             print(f"{unidecode(firstname)} {unidecode(lastname)} already exist")
 
+def drop_all_default_users(db: Session):
+    print("Dropping all default users")
+    db.query(User).filter(User.firstname == "Sully", User.lastname == "Natsuya").delete()
+    db.query(User).filter(User.firstname == "Éthelle", User.lastname == "Minami").delete()
+    db.commit()  # Commit the transaction
 
 # Create users
 def create_default_users(db: Session):
+    try:
+        drop_all_default_users(db)
+    except Exception as e:
+        print("Probably the first time we create the database, so we don't need to drop the default users")
     print("Creating default users")
-    
     try:
         create_user(db, "Sully", "Natsuya", GenderEnum.MALE, "+123456789", "12345", "123 Main St", "Example City", "Example Country", "administrator", "superpassword")
         create_user(db, "Éthelle", "Minami", GenderEnum.FEMALE, "+987654321", "54321", "456 Elm St", "Another City", "Different Country")
