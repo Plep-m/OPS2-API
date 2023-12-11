@@ -15,10 +15,14 @@ def test_get_users_ok():
 def test_get_user_by_login_ok():
   response = client.get("/user/login/sully_natsuya")
   assert response.status_code == 200
+  assert response.json()['firstname'] == "Sully"
+  assert response.json()['lastname'] == "Natsuya"
 
 def test_get_user_by_id_ok():
   response = client.get("/user/id/1")
   assert response.status_code == 200
+  assert response.json()['firstname'] == "Sully"
+  assert response.json()['lastname'] == "Natsuya"
 
 def test_connect_wrongpass_ko():
   response = client.post(
