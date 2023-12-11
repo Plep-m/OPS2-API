@@ -21,3 +21,18 @@ def test_connect_wrongpass_ko():
   )
   assert response.status_code == 401
   assert response.json() == {"detail": "Invalid credentials"}
+
+def test_connect_ok():
+  response = client.post(
+    "/connect/",
+    headers={
+      "Content-Type": "application/json"
+    },
+    json={
+      "user_login": "sully_natsuya",
+      "password": "superpassword"
+    }
+  )
+  assert response.status_code == 200
+  
+   
