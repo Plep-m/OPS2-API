@@ -15,6 +15,7 @@ class GenderEnum(Enum):
     MALE = "male"
     FEMALE = "female"
     NON_BINARY = "non_binary"
+    NEUTRAL = "neutral"
 
 # Association table for many-to-many relationship between User and Role
 user_roles_association = Table(
