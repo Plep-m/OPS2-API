@@ -9,7 +9,7 @@ def test_root():
     assert response.json() == ['Hello World !!!']
 
 def test_verify_token_ok():
-    client.post("/connect/", data={"user_login": "sully_natsuya", "password": "admin"})
+    client.post("/connect/", data={"user_login": "sully_natsuya", "password": "superpassword"})
     response = client.get("/verify-token/")
     assert response.status_code == 200
     assert response.json() == {"login": "admin"}
