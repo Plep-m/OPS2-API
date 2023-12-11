@@ -11,4 +11,4 @@ def test_root():
 def test_verify_token_ko():
     response = client.get("/verify-token/")
     assert response.status_code == 401
-    assert response.json() == {'detail': 'Could not validate credentials'}
+    assert response.json() == {'detail': 'Not authenticated'}
