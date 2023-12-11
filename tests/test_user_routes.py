@@ -82,3 +82,18 @@ def test_verify_token_ko():
   )
   assert response.status_code == 401
   assert response.json() == {"detail": "Could not validate credentials"}
+
+def test_get_picture_for_user_ok():
+  response = client.get("/users/sully_natsuya/profile_picture/")
+  assert response.status_code == 200
+  assert response.headers['Content-Type'] == "image/png"
+
+def test_get_picture_for_user_official_ok():
+  response = client.get("/users/sully_natsuya/profile_picture/official/")
+  assert response.status_code == 200
+  assert response.headers['Content-Type'] == "image/png"
+
+def test_get_picture_for_user_ko():
+  response = client.get("/users/sully_nsuya/profile_picture")
+  assert response.status_code == 200
+  assert response.json() == {"message": "User not found"}
