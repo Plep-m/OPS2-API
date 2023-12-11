@@ -20,7 +20,7 @@ def verify_password(user, password):
         return True
     return False
 
-def create_user(db: Session, firstname: str, lastname: str, gender: GenderEnum, phone: str, postal_code: str, address: str, city: str, country: str, role_names = ["administrator", "staff", "ranger"]):
+def create_user(db: Session, firstname: str, lastname: str, gender: GenderEnum, phone: str, postal_code: str, address: str, city: str, country: str, role_names = ["administrator", "staff", "ranger"], password: str = None):
         # Check if the user already exists
         if db.query(User).filter(User.firstname == unidecode(firstname), User.lastname == unidecode(lastname)).first() is None:
             # Generate the personal token
@@ -58,11 +58,9 @@ def create_user(db: Session, firstname: str, lastname: str, gender: GenderEnum, 
         else:
             print(f"{unidecode(firstname)} {unidecode(lastname)} already exist")
 
-
 # Create users
 def create_default_users(db: Session):
     print("Creating default users")
-    
     try:
         create_user(db, "Sully", "Natsuya", GenderEnum.MALE, "+123456789", "12345", "123 Main St", "Example City", "Example Country")
         create_user(db, "Éthelle", "Minami", GenderEnum.FEMALE, "+987654321", "54321", "456 Elm St", "Another City", "Different Country")
