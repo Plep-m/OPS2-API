@@ -7,6 +7,10 @@ def test_root():
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == ['Hello World !!!']
+  
+def test_get_user_by_login_ok():
+  response = client.get("/users/sully_natsuya")
+  assert response.status_code == 200
 
 def test_connect_wrongpass_ko():
   response = client.post(
@@ -23,6 +27,7 @@ def test_connect_wrongpass_ko():
   assert response.json() == {"detail": "Invalid credentials"}
 
 def test_connect_ok():
+  password = client.get("/users/sully_natsuya").json()['metas']['fpassword']
   response = client.post(
     "/connect/",
     headers={
@@ -30,9 +35,9 @@ def test_connect_ok():
     },
     json={
       "user_login": "sully_natsuya",
-      "password": "superpassword"
+      "password": password
     }
   )
   assert response.status_code == 200
-  
+
    
