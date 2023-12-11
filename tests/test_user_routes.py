@@ -40,4 +40,23 @@ def test_connect_ok():
   )
   assert response.status_code == 200
 
-   
+def test_verify_token_ok():
+  password = client.get("/user/sully_natsuya").json()['metas']['fpassword']
+  token = client.post(
+    "/connect/",
+    headers={
+      "Content-Type": "application/json"
+    },
+    json={
+      "user_login": "sully_natsuya",
+      "password": password
+    }
+  ).json()['access_token']
+  response = client.get(
+    "/verify-token/",
+    headers={
+      "Authorization": f"Bearer {token}"
+    }
+  )
+  assert response.status_code == 200
+  assert response.json() == {"login": "sully_natsuya"}
