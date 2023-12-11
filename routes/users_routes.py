@@ -84,12 +84,12 @@ def get_users(db: Session = Depends(get_db)):
     return users
 
 
-@router.get("/user/{user_login}")
+@router.get("/user/login/{user_login}")
 def get_user_by_login(user_login: str, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.login == user_login).options(joinedload(User.roles)).first()
     return user
 
-@router.get("/user/{user_id}")
+@router.get("/user/id/{user_id}")
 def get_user_by_id(user_id: int, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).options(joinedload(User.roles)).first()
     return user
