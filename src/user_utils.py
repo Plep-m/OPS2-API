@@ -20,7 +20,7 @@ def verify_password(user, password):
         return True
     return False
 
-def create_user(db: Session, firstname: str, lastname: str, gender: GenderEnum, phone: str, postal_code: str, address: str, city: str, country: str, role_names = ["administrator", "staff", "ranger"]):
+def create_user(db: Session, firstname: str, lastname: str, gender: GenderEnum, phone: str, postal_code: str, address: str, city: str, country: str, role_names = ["administrator", "staff", "ranger"], password: str = None):
         # Check if the user already exists
         if db.query(User).filter(User.firstname == unidecode(firstname), User.lastname == unidecode(lastname)).first() is None:
             # Generate the personal token
@@ -28,7 +28,10 @@ def create_user(db: Session, firstname: str, lastname: str, gender: GenderEnum, 
             user_personnal_token = generate_md5(unidecode(firstname) + unidecode(lastname) + secret_salt)
             
             # Generate a random password and its hash
-            random_password = generate_random_password()
+            if password:
+                random_password = password
+            else:
+                random_password = generate_random_password()
             hashed_password = generate_md5(random_password + secret_salt)
             
             # Fetch the roles we want to associate with the user
@@ -64,7 +67,7 @@ def create_default_users(db: Session):
     print("Creating default users")
     
     try:
-        create_user(db, "Sully", "Natsuya", GenderEnum.MALE, "+123456789", "12345", "123 Main St", "Example City", "Example Country")
+        create_user(db, "Sully", "Natsuya", GenderEnum.MALE, "+123456789", "12345", "123 Main St", "Example City", "Example Country", "administrator", "superpassword")
         create_user(db, "Éthelle", "Minami", GenderEnum.FEMALE, "+987654321", "54321", "456 Elm St", "Another City", "Different Country")
         db.commit()  # Commit the transaction after both user creations have been attempted
     except Exception as e:
