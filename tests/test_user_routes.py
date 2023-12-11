@@ -97,3 +97,8 @@ def test_get_picture_for_user_ko():
   response = client.get("/users/sully_nsuya/profile_picture")
   assert response.status_code == 200
   assert response.json() == {"message": "User not found"}
+
+def test_get_picture_for_user_ko_2():
+  response = client.get("/users/nagisa_shiota/profile_picture/official")
+  assert response.status_code == 200
+  assert response.json() == {"message": "Invalid gender"}
