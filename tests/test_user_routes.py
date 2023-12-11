@@ -1,5 +1,11 @@
 from fastapi.testclient import TestClient
 from main import app
+import pytest
+
+@pytest.fixture
+def mock_open_file(mocker):
+  return mocker.patch("builtins.open", mocker.mock_open())
+
 
 client = TestClient(app)
 
@@ -102,3 +108,13 @@ def test_get_picture_for_user_ko_2():
   response = client.get("/users/nagisa_shiota/profile_picture/official")
   assert response.status_code == 200
   assert response.json() == {"message": "Invalid gender"}
+
+def test_upload_pickture_ko():
+  response = client.post(
+    "/users/sully_nuya/upload_profile_picture/",
+    headers={
+      "Content-Type": "multipart/form-data"
+    },
+  )
+  assert response.status_code == 200
+  assert response.json() == {"message": "User not found"}
