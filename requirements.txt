@@ -9,3 +9,6 @@ python-multipart
 unidecode
 PyJWT
 python-dotenv
+coverage
+pytest
+httpx
