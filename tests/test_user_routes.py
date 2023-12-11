@@ -115,6 +115,9 @@ def test_upload_pickture_ko():
     headers={
       "Content-Type": "multipart/form-data"
     },
+    files={
+      "file": ("test.png", b"test")
+    }
   )
   assert response.status_code == 200
   assert response.json() == {"message": "User not found"}
