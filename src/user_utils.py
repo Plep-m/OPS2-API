@@ -64,7 +64,7 @@ def create_default_users(db: Session):
     try:
         create_user(db, "Sully", "Natsuya", GenderEnum.MALE, "+123456789", "12345", "123 Main St", "Example City", "Example Country")
         create_user(db, "Éthelle", "Minami", GenderEnum.FEMALE, "+987654321", "54321", "456 Elm St", "Another City", "Different Country")
-        create_user(db, "Nagisa", "Shiota", GenderEnum.NEUTRAL, "+987654321", "54321", "456 Elm St", "Another City", "Different Country")
+        create_user(db, "Nagisa", "Shiota", GenderEnum.NEUTRAL, "+983456734", "45665", "456 Elm St", "Tokyo", "Japan")
         db.commit()  # Commit the transaction after both user creations have been attempted
     except Exception as e:
         # Handle exceptions appropriately
