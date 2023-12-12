@@ -12,3 +12,4 @@ python-dotenv
 coverage
 pytest
 httpx
+pytest-mock

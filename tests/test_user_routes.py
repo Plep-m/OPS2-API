@@ -206,10 +206,8 @@ def test_create_user():
 
 @pytest.mark.parametrize("user_login", [None])
 def test_get_current_user_user_login_none(mocker, user_login):
-    # Mock the jwt.decode function to return a valid payload or raise JWTError
     mocker.patch("routes.users_routes.jwt.decode", return_value={"sub": user_login} if user_login else PyJWTError("Invalid token"))
 
-    # Mock the database query to return None or an existing user
     mocker.patch("routes.users_routes.get_db", return_value=mocker.Mock(query=mocker.Mock(
         filter=mocker.Mock(return_value=mocker.Mock(first=mocker.Mock(return_value=User(login=user_login) if user_login else None)))
     )))
@@ -219,6 +217,4 @@ def test_get_current_user_user_login_none(mocker, user_login):
         headers={"Authorization": "Bearer valid_token"},
     )
     assert response.status_code == 401
-
-    # Assert that the response contains the expected detail message
     assert response.json() == {"detail": "Could not validate credentials"}
