@@ -2,7 +2,7 @@ from fastapi import UploadFile
 from fastapi.testclient import TestClient
 from main import app
 from models.user_model import User
-from sqlalchemy.orm import Session
+from src.database import SessionLocal
 import pytest
 
 @pytest.fixture
@@ -202,7 +202,7 @@ def test_create_user():
   assert response.status_code == 200
   assert response.json() == {"message": "User created successfully"}
 
-  with Session() as db:
+  with SessionLocal() as db:
       created_user = db.query(User).filter_by(firstname="Paul").first()
       assert created_user is not None
       assert created_user.lastname == "Menut"
