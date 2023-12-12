@@ -110,13 +110,14 @@ def test_get_picture_for_user_ko_2():
   assert response.status_code == 200
   assert response.json() == {"message": "Invalid gender"}
 
-def test_post_picture_for_user_ok():
+def test_post_picture_for_user_ko():
   with open('resources/basics/man.png', 'rb') as file:
     upload_file = UploadFile(file=file, filename='man.png')
             
     response = client.post(
-                f'/users/sully_natsuya/upload_profile_picture/',
+                f'/users/sully_natya/upload_profile_picture/',
                 files={'file': ('man.png', file, 'image/image/png')},
               )
     assert response.status_code == 200
+    assert response.json() == {"message": "User not found"}
 
