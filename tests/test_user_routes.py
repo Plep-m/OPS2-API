@@ -116,7 +116,7 @@ def test_upload_pickture_ko():
       "Content-Type": "multipart/form-data"
     },
     files=[
-      ('file', 'test.jpg', 'image/jpeg')
+      ('test.jpg', 'image/jpeg')
     ]
   )
   assert response.status_code == 200
