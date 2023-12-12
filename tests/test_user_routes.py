@@ -1,6 +1,8 @@
 from fastapi import UploadFile
 from fastapi.testclient import TestClient
 from main import app
+from models.user_model import User
+from sqlalchemy.orm import Session
 import pytest
 
 @pytest.fixture
@@ -175,3 +177,33 @@ def test_post_picture_for_user_official_ok_2():
               )
     assert response.status_code == 200
     assert response.json() == {"message": "Profile picture uploaded successfully"}
+
+def test_create_user():
+  user_data = {
+      "firstname": "John",
+      "lastname": "Doe",
+      "gender": "male",
+      "phone": "+33612345678",
+      "postal_code": "45422",
+      "address": "1 rue de la Paix",
+      "city": "Paris",
+      "country": "France",
+      "roles": [{"name": "administrator"}]
+  }
+
+  response = client.post(
+      "/users/",
+      json=user_data,
+      headers={
+          "Content-Type": "application/json"
+      },
+  )
+
+  assert response.status_code == 200
+  assert response.json() == {"message": "User created successfully"}
+
+  with Session() as db:
+      created_user = db.query(User).filter_by(firstname="Paul").first()
+      assert created_user is not None
+      assert created_user.lastname == "Menut"
+      assert created_user.roles == ["administrator"]
