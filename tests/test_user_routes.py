@@ -203,7 +203,7 @@ def test_create_user():
   assert response.json() == {"message": "User created successfully"}
 
   with SessionLocal() as db:
-      created_user = db.query(User).filter_by(firstname="Paul").first()
+      created_user = db.query(User).filter_by(firstname="John").first()
       assert created_user is not None
-      assert created_user.lastname == "Menut"
+      assert created_user.lastname == "Doe"
       assert created_user.roles == ["administrator"]
