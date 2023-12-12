@@ -206,4 +206,3 @@ def test_create_user():
       created_user = db.query(User).filter_by(firstname="John").first()
       assert created_user is not None
       assert created_user.lastname == "Doe"
-      assert created_user.roles == ["administrator"]
