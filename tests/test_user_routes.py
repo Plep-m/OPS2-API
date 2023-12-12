@@ -1,3 +1,4 @@
+from fastapi import UploadFile
 from fastapi.testclient import TestClient
 from main import app
 import pytest
@@ -108,4 +109,14 @@ def test_get_picture_for_user_ko_2():
   response = client.get("/users/nagisa_shiota/profile_picture/official")
   assert response.status_code == 200
   assert response.json() == {"message": "Invalid gender"}
+
+def test_post_picture_for_user_ok():
+  with open('resources/basics/man.png', 'rb') as file:
+    upload_file = UploadFile(file=file, filename='man.png', content_type='image/png')
+            
+    response = client.post(
+                f'/users/sully_natsuya/upload_profile_picture/',
+                files={'file': ('man.png', file, 'image/image/png')},
+              )
+    assert response.status_code == 200
 
