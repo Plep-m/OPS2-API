@@ -3,12 +3,6 @@ from fastapi.testclient import TestClient
 from main import app
 from models.user_model import User
 from src.database import SessionLocal
-import pytest
-
-@pytest.fixture
-def mock_open_file(mocker):
-  return mocker.patch("builtins.open", mocker.mock_open())
-
 
 client = TestClient(app)
 
