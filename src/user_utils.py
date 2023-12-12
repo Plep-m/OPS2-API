@@ -56,7 +56,7 @@ def create_user(db: Session, firstname: str, lastname: str, gender: GenderEnum, 
             db.add(db_user)
             db.commit()  # Commit the transaction
         else:
-            print(f"{unidecode(firstname)} {unidecode(lastname)} already exist")
+            raise Exception(f"{unidecode(firstname)} {unidecode(lastname)} already exist")
 
 
 # Create users

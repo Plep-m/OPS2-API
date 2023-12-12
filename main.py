@@ -1,13 +1,4 @@
-import os
-
-from dotenv import load_dotenv
-
-if os.path.isfile('ops.env'):
-    load_dotenv('ops.env')
-else:
-    print('ops.env not found, using ops_env.env default file')
-    load_dotenv('ops_env.env')
-
+import src.env
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 from routes.roles_routes import router as role_router
