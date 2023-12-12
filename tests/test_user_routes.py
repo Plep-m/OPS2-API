@@ -217,3 +217,17 @@ def test_get_current_user_user_login_none(mocker):
         
     assert response.status_code == 401
     assert response.json() == {"detail": "Could not validate credentials"}
+
+def test_get_current_user_ko_user_none(mocker):
+    mocker.patch("routes.users_routes.jwt.decode", return_value={"sub": "user_login"})
+    mocker.patch("routes.users_routes.get_db", return_value=mocker.Mock(query=mocker.Mock(
+        filter=mocker.Mock(return_value=mocker.Mock(first=mocker.Mock(return_value=None)))
+    )))
+
+    response = client.get(
+            "/verify-token/",
+            headers={"Authorization": "Bearer valid_token"},
+        )
+        
+    assert response.status_code == 401
+    assert response.json() == {"detail": "Could not validate credentials"}
