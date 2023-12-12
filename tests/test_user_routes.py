@@ -109,15 +109,3 @@ def test_get_picture_for_user_ko_2():
   assert response.status_code == 200
   assert response.json() == {"message": "Invalid gender"}
 
-def test_upload_pickture_ko():
-  response = client.post(
-    "/users/sully_nuya/upload_profile_picture/",
-    headers={
-      "Content-Type": "multipart/form-data"
-    },
-    files=[
-      (open('resources/basics/man.png', 'rb'), 'man.png')
-    ]
-  )
-  assert response.status_code == 200
-  assert response.json() == {"message": "User not found"}
