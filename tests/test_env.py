@@ -3,5 +3,5 @@ import pytest
 
 def test_env_default(capsys):
   main_load_env('test.env')
-  out = capsys.readouterr()
+  out, err = capsys.readouterr()
   assert out == 'test.env not found, using ops_env.env default file\n'
