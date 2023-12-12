@@ -235,15 +235,11 @@ def test_get_current_user_ko_user_none(mocker):
 
 def test_get_picture_path_exists(mocker):
     mocker.patch("os.path.exists", return_value=True)
-
-    # Define user_login and extensions for the test
     user_login = "test_user"
     extensions = ["jpg", "png", "gif"]
     big_extension = "_big"
-
-    # Call the function
     result = get_picture_path(user_login, extensions, big_extension)
     os.path.exists.assert_called_once_with(f"resources/user/profile_picture/{user_login}/{user_login}_big.jpg")
     expected_path = f"resources/user/profile_picture/{user_login}/{user_login}_big.jpg"
-    
+
     assert result == expected_path
