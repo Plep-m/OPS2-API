@@ -28,7 +28,7 @@ def test_post_tags_ok():
             "Content-Type": "application/json"
         },
         json={
-            "tag_names": ["test1", "test2"]
+            ["test1", "test2"]
         }
     )
     assert response.status_code == 200
@@ -36,13 +36,9 @@ def test_post_tags_ok():
 
 def test_update_tag_ok():
     response = client.post(
-        "/tag/update",
+        "/tag/update?tag_name=test&new_name=test3",
         headers={
             "Content-Type": "application/json"
-        },
-        json={
-            "tag_name": "test",
-            "new_name": "test3"
         }
     )
     assert response.status_code == 200
@@ -50,12 +46,9 @@ def test_update_tag_ok():
 
 def test_delete_tag_ok():
     response = client.post(
-        "/tag/delete",
+        "/tag/delete?tag_name=test3",
         headers={
             "Content-Type": "application/json"
-        },
-        json={
-            "tag_name": "test3"
         }
     )
     assert response.status_code == 200
