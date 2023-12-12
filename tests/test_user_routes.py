@@ -112,7 +112,7 @@ def test_get_picture_for_user_ko_2():
 
 def test_post_picture_for_user_ok():
   with open('resources/basics/man.png', 'rb') as file:
-    upload_file = UploadFile(file=file, filename='man.png', content_type='image/png')
+    upload_file = UploadFile(file=file, filename='man.png')
             
     response = client.post(
                 f'/users/sully_natsuya/upload_profile_picture/',
