@@ -1,4 +1,4 @@
-from src.user_utils import create_user
+from src.user_utils import create_user, create_default_users
 from src.database import SessionLocal
 from models.user_model import GenderEnum
 
@@ -15,3 +15,10 @@ def test_create_user_ko_2():
       create_user(db, "Nagisa", "Shiota", GenderEnum.NEUTRAL, "+983456734", "45665", "456 Elm St", "Tokyo", "Japan")
     except Exception as e:
       assert str(e) == "Nagisa Shiota already exist"
+
+def test_create_default_users():
+  with SessionLocal() as db:
+    try:
+      create_default_users(db)
+    except Exception as e:
+      assert str(e) == "Sully Natsuya already exist"
