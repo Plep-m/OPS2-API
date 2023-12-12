@@ -186,8 +186,8 @@ async def create_new_user(
     array_roles = []
     for data in user_data.roles:
         array_roles.append(data.name)
-    created_user = create_user(db, user_data.firstname, user_data.lastname, user_data.gender, user_data.phone, user_data.postal_code, user_data.address, user_data.city, user_data.country, array_roles)
-    return created_user
+    create_user(db, user_data.firstname, user_data.lastname, user_data.gender, user_data.phone, user_data.postal_code, user_data.address, user_data.city, user_data.country, array_roles)
+    return {"message": "User created successfully"}
     
 @router.post("/connect/")
 async def authenticate_user(data: dict = Body(...), db: Session = Depends(get_db)):
