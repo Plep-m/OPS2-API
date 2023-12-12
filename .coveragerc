@@ -1,0 +1,6 @@
+[run]
+omit =
+    # omit venv folder
+    venv/*
+    # omit tests folder
+    tests/*
