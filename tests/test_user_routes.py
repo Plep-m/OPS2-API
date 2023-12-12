@@ -205,16 +205,15 @@ def test_create_user():
       assert created_user.lastname == "Doe"
 
 def test_get_current_user_user_login_none(mocker):
-    mocker.patch("routes.users_routes.jwt.decode", side_effect=PyJWTError("Invalid token"))
+    mocker.patch("routes.users_routes.jwt.decode", return_value={"sub": None})
     mocker.patch("routes.users_routes.get_db", return_value=mocker.Mock(query=mocker.Mock(
         filter=mocker.Mock(return_value=mocker.Mock(first=mocker.Mock(return_value=None)))
     )))
 
-    with TestClient(app) as client:
-        response = client.get(
+    response = client.get(
             "/verify-token/",
             headers={"Authorization": "Bearer valid_token"},
         )
-
+        
     assert response.status_code == 401
     assert response.json() == {"detail": "Could not validate credentials"}
