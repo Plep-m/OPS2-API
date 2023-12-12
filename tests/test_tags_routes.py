@@ -27,9 +27,7 @@ def test_post_tags_ok():
         headers={
             "Content-Type": "application/json"
         },
-        json={
-            ["test1", "test2"]
-        }
+        json=["test1", "test2"]
     )
     assert response.status_code == 200
     assert response.json() == {"message": "Tags added successfully"}
